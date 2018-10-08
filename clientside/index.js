@@ -8,8 +8,9 @@ function SubmitData()
 	
 	var request = new XMLHttpRequest();
 	request.open("POST", "localhost:1337", true);
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	request.onreadystatechange = SentData;
-	request.send();
+	request.send("first=" + first + "&" + "last=" + last);
 }
 
 function SentData()
