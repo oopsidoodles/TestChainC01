@@ -16,4 +16,5 @@ tomcat/webapps/ROOT/
 tomcat/webapps/docs/
 tomcat/webapps/examples/
 tomcat/webapps/host-manager/
-tomcat/webapps/manager/
+tomcat/webapps/manager
+mysql/
