@@ -19,3 +19,4 @@ tomcat/webapps/host-manager/
 tomcat/webapps/manager
 mysql/
 connector/
+clientside_backup/
