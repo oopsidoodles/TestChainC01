@@ -10,7 +10,8 @@ public class MainServlet extends HttpServlet {
    @Override
    public void doGet(HttpServletRequest request, HttpServletResponse response)
          throws IOException, ServletException {
- 
+	   //TODO all this
+	   
       // Set the response MIME type of the response message
       response.setContentType("text/html");
       // Allocate a output writer to write the response message into the network socket
@@ -38,6 +39,7 @@ public class MainServlet extends HttpServlet {
    @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
    {
+	   //TODO return 200 or error
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try

@@ -9,7 +9,14 @@ function SubmitData()
 	var request = new XMLHttpRequest();
 	request.open("POST", "http://localhost:42069/server/test", true);
 	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	request.onreadystatechange = SentData;
+	request.onreadystatechange = function()
+	{
+		if(request.readyState == 4 && request.status == 200)
+		{
+			SentData();
+		}
+	}
+	
 	request.send("firstname=" + first + "&" + "lastname=" + last);
 }
 
