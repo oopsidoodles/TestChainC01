@@ -1,8 +1,12 @@
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import java.sql.*;
  
 public class MainServlet extends HttpServlet {
+	private String tableName = "test";
+	
    @Override
    public void doGet(HttpServletRequest request, HttpServletResponse response)
          throws IOException, ServletException {
@@ -14,7 +18,7 @@ public class MainServlet extends HttpServlet {
  
       // Write the response message, in an HTML page
       try {
-         out.println("<html>");
+         /*out.println("<html>");
          out.println("<head><title>Hello, World</title></head>");
          out.println("<body>");
          out.println("<h1>Hello, world!</h1>");  // says Hello
@@ -25,15 +29,42 @@ public class MainServlet extends HttpServlet {
          out.println("<p>Remote Address: " + request.getRemoteAddr() + "</p>");
          // Generate a random number upon each request
          out.println("<p>A Random Number: <strong>" + Math.random() + "</strong></p>");
-         out.println("</body></html>");
+         out.println("</body></html>");*/
       } finally {
          out.close();  // Always close the output writer
       }
    }
    
    @Override
-   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       String username = request.getParameter("firstname");
-       String password = request.getParameter("lastname");
+   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+   {
+	   Connection conn = null;
+	   Statement stmt = null;
+	   try
+	   {
+	       String firstname = request.getParameter("firstname");
+	       String lastname = request.getParameter("lastname");
+	       
+	       conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/c01testing?useSSL=false", "vili", "vili");
+	       
+	       //stmt = conn.createStatement();
+	       
+	       //String insert = String.format("INSERT INTO test VALUES (%s, %s)", firstname, lastname);
+	       String insert = "INSERT INTO " + tableName + "(firstname, lastname) " + "VALUES(?,?)";
+	       
+	       PreparedStatement insertSql = conn.prepareStatement(insert);
+	       insertSql.setString(1, firstname);
+	       insertSql.setString(2, lastname);
+	       insertSql.executeUpdate();
+	       
+	       //stmt.executeUpdate(insert);
+	       
+		   stmt.close();
+		   conn.close();
+	   }
+	   catch (SQLException e)
+	   {
+		   e.printStackTrace();
+	   }
    }
 }
