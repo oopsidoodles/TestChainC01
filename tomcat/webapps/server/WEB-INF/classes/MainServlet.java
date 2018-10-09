@@ -30,4 +30,10 @@ public class MainServlet extends HttpServlet {
          out.close();  // Always close the output writer
       }
    }
+   
+   @Override
+   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       String username = request.getParameter("firstname");
+       String password = request.getParameter("lastname");
+   }
 }

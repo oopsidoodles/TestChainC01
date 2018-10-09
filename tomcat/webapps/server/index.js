@@ -7,10 +7,10 @@ function SubmitData()
 	last = document.getElementById("lastname").value;
 	
 	var request = new XMLHttpRequest();
-	request.open("POST", "localhost:1337", true);
+	request.open("POST", "http://localhost:42069/server/test", true);
 	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	request.onreadystatechange = SentData;
-	request.send("first=" + first + "&" + "last=" + last);
+	request.send("firstname=" + first + "&" + "lastname=" + last);
 }
 
 function SentData()
