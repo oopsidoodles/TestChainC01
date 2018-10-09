@@ -11,12 +11,22 @@ function SubmitData()
 	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	request.onreadystatechange = function()
 	{
-		if(request.readyState == 4 && request.status == 200)
+		if(request.readyState == 4)
 		{
-			SentData();
+			/*if (request.status == 200)
+			{
+				SentData();
+			}
+			else
+			{
+				alert(request.status);
+			}*/
+			alert(request.status);
 		}
 	}
-	
+	request.onload = function () {
+		console.log('DONE', request.status);
+	};
 	request.send("firstname=" + first + "&" + "lastname=" + last);
 }
 

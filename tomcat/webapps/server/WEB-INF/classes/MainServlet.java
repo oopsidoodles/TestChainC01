@@ -2,6 +2,9 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.sql.*;
  
 public class MainServlet extends HttpServlet {
@@ -40,16 +43,12 @@ public class MainServlet extends HttpServlet {
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
    {
 	   //TODO return 200 or error
-	   Connection conn = null;
-	   Statement stmt = null;
 	   try
 	   {
 	       String firstname = request.getParameter("firstname");
 	       String lastname = request.getParameter("lastname");
 	       
-	       conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/c01testing?useSSL=false", "vili", "vili");
-	       
-	       //stmt = conn.createStatement();
+	       Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/c01testing?useSSL=false&allowPublicKeyRetrieval=true", "vili", "vili");
 	       
 	       //String insert = String.format("INSERT INTO test VALUES (%s, %s)", firstname, lastname);
 	       String insert = "INSERT INTO " + tableName + "(firstname, lastname) " + "VALUES(?,?)";
@@ -59,14 +58,13 @@ public class MainServlet extends HttpServlet {
 	       insertSql.setString(2, lastname);
 	       insertSql.executeUpdate();
 	       
-	       //stmt.executeUpdate(insert);
-	       
-		   stmt.close();
 		   conn.close();
+		   response.setStatus(HttpServletResponse.SC_OK);
 	   }
 	   catch (SQLException e)
 	   {
 		   e.printStackTrace();
+		   response.setStatus(HttpServletResponse.SC_CONFLICT);
 	   }
    }
 }
